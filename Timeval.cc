@@ -94,7 +94,7 @@ void ZeroTimeval(timeval &t){
 void PrintTimeval(char *lead_in,timeval &t){
   double d;
   TimevalToDouble(t,d);
-  printf("%s: %u:%u --> %f\n",lead_in,t.tv_sec, t.tv_usec, d);
+  printf("%s: %lu:%u --> %f\n",lead_in,t.tv_sec, t.tv_usec, d);
 }
 
 void GetTime(timeval &tm){

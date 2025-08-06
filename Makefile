@@ -16,7 +16,7 @@ endif
 ifeq ($(UNAME), Darwin)
 CXX = g++
 FLAGS = -O2
-MPILIB = -lmpi -lmpi_cxx
+MPILIB = -lmpi
 endif
 
 ifeq ($(UNAME), AIX)
@@ -69,3 +69,7 @@ PatternIO.o: PatternIO.cxx Timeval.hh Timer.hh MPIutils.hh
 
 clean: 
 	rm -f *.o
+
+distclean: clean
+	rm -f PatternIO
+

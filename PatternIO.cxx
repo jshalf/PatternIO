@@ -380,7 +380,7 @@ public:
     if(nmul*Megabytes(1) < transfersize) nmul++; /* pad out to even multiple of transfer sizes */
     aligned_transfersize = (long long)nmul * Megabytes(1); /* multiple of the stripe size */
     if(!comm->rank())
-      printf("%u ",(transfersize>Megabytes(1))?aligned_transfersize:transfersize);
+      printf("%lld ",(transfersize>Megabytes(1))?aligned_transfersize:transfersize);
     // now compute initial offset
     if(transfersize>Megabytes(1))/* if write is larger than OST size */
       offset = (long long)comm->proc()*aligned_transfersize; /* aligned case */
@@ -420,7 +420,7 @@ public:
     /* regular file open/create */
     char *rfilename = (char*)malloc(strlen(filename)+32);
     int fd_oflag = O_CREAT | O_RDWR;
-    sprintf(rfilename,"%s%03u",filename,comm->rank());
+    snprintf(rfilename,strlen(filename)+32,"%s%03u",filename,comm->rank());
     fd = open(rfilename, fd_oflag, 0664);
     if(fd<0){
       fprintf(stderr,"Process[%u]: failed to open file [%s]\n",
@@ -468,7 +468,7 @@ int main(int argc, char *argv[]){
   //pio = new PatternPOSIXaligned(comm);
   //pio = new PatternPOSIX_unique(comm);
 
-  sprintf(filename,"interleaved_file"); // in case we use argv[1] in the future
+  snprintf(filename,sizeof(filename),"interleaved_file"); // in case we use argv[1] in the future
   data = (char*)valloc(MAX_LOCAL_SIZE); // make sure data buffer is page aligned
   if(!data) {
 	fprintf(stderr,"failed to malloc data on proc[%u]\n",comm->rank());

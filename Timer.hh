@@ -25,7 +25,7 @@ public:
     system=s; user=u; real=r;
   }
   double realTime();
-  void print(char *str="",FILE *f=stderr){
+  void print(const char *str="",FILE *f=stderr){
     double s,u,r;
     this->elapsedTimeSeconds(s,u,r);
     fprintf(f,"Timer[%s]: real=%g user=%g system=%g\n",str,r,u,s);
